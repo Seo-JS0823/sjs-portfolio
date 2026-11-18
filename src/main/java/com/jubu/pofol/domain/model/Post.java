@@ -54,8 +54,17 @@ public class Post {
 		
 		entity.title = title;
 		entity.description = description;
+		entity.createdAt = Instant.now();
 		
 		return entity;
+	}
+	
+	public void addContent(PostContent content) {
+		if (this.content != null) {
+			throw new CustomException("post content not is null");
+		}
+		
+		this.content = content;
 	}
 	
 	public void changeTitle(String title) {
@@ -66,6 +75,8 @@ public class Post {
 	
 	public void changeDescription(String description) {
 		Check.notBlank(description, () -> new CustomException("post description is null"));
+		
+		this.description = description;
 	}
 	
 	public void changeContent(String content) {

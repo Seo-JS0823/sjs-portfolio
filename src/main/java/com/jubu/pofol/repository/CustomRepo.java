@@ -6,5 +6,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface CustomRepo<T, ID> extends JpaRepository<T, ID> {
 
-	T findByIdThrow(ID id);
+	T findByIdOrThrow(ID id);
 }

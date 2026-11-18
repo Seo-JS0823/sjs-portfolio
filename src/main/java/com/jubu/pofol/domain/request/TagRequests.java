@@ -11,11 +11,21 @@ public final class TagRequests {
 		
 	}
 	
-	public record TagCreateRequest(String name, String bgColor, String tColor, Long tagGroupId) {
+	public record TagCreateRequest(String tagName, String bgColor, String tColor, Long tagGroupId) {
 		
 	}
 	
-	public record TagUpdateRequest(String name, String bgColor, String tColor) {
+	public record TagUpdateRequest(String tagName, String bgColor, String tColor) {
+		public boolean hasName() {
+			return tagName == null;
+		}
 		
+		public boolean hasBgColor() {
+			return bgColor == null;
+		}
+		
+		public boolean hasTColor() {
+			return tColor == null;
+		}
 	}
 }

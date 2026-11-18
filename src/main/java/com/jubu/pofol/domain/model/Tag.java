@@ -69,4 +69,10 @@ public class Tag {
 		
 		this.tColor = tColor;
 	}
+
+	public void changeName(String tagName) {
+		Check.notBlank(tagName, () -> new CustomException("tag name is null"));
+		
+		this.name = tagName;
+	}
 }

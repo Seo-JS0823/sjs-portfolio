@@ -20,7 +20,7 @@ public class CustomRepoImpl<T, ID> extends SimpleJpaRepository<T, ID> implements
 	}
 
 	@Override
-	public T findByIdThrow(ID id) {
+	public T findByIdOrThrow(ID id) {
 		return findById(id)
 				.orElseThrow(() -> new CustomException(entityName + " not found"));
 	}
