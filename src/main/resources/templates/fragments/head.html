@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>서주성 포트폴리오</title>
+
+  <!-- 폰트 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+  <!-- 1. base: 변수 → 초기화/공통  -->
+  <link rel="stylesheet" th:href="@{/css/base/variables.css}">
+  <link rel="stylesheet" th:href="@{/css/base/base.css}">
+
+  <!-- 2. layout: 페이지 뼈대 -->
+  <link rel="stylesheet" th:href="@{/css/layout/header.css}">
+  <link rel="stylesheet" th:href="@{/css/layout/footer.css}">
+
+  <!-- 3. components: 여러 곳에서 재사용하는 조각 -->
+  <link rel="stylesheet" th:href="@{/css/components/tag.css}">
+  <link rel="stylesheet" th:href="@{/css/components/card.css}">
+  <link rel="stylesheet" th:href="@{/css/components/markdown.css}">
+
+  <!-- 4. sections: 섹션별 전용 스타일 -->
+  <link rel="stylesheet" th:href="@{/css/sections/about.css}">
+  <link rel="stylesheet" th:href="@{/css/sections/links.css}">
+  <link rel="stylesheet" th:href="@{/css/sections/skills.css}">
+  <link rel="stylesheet" th:href="@{/css/sections/projects.css}">
+</head>
+</html>

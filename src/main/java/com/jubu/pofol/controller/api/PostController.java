@@ -1,4 +1,4 @@
-package com.jubu.pofol.controller;
+package com.jubu.pofol.controller.api;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +17,7 @@ import com.jubu.pofol.domain.response.PostResponses.PostDetailResponse;
 import com.jubu.pofol.domain.response.PostResponses.PostListResponse;
 import com.jubu.pofol.domain.response.PostResponses.PostUpdateResponse;
 import com.jubu.pofol.service.PostService;
+import com.jubu.pofol.service.PostViewService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class PostController {
 
 	private final PostService postService;
+	private final PostViewService postViewService;
 	
 	@PostMapping
 	public ResponseEntity<PostCreateResponse> create(
@@ -64,6 +66,15 @@ public class PostController {
 		return ResponseEntity.ok(response);
 	}
 	
+	@PostMapping("/{id}/views")
+	public ResponseEntity<Void> increaseView(
+			@PathVariable("id") Long postId
+	) {
+		postViewService.increase(postId);
+
+		return ResponseEntity.noContent().build();
+	}
+
 	@GetMapping
 	public ResponseEntity<PostListResponse> getList() {
 		PostListResponse response = postService.getList();

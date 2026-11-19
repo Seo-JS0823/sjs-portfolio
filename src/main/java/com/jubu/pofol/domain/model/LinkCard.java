@@ -31,8 +31,12 @@ public class LinkCard {
 	
 	@Column(nullable = false, length = 255)
 	private String description;
-	
-	public static LinkCard create(String url, String title, String description) {
+
+	/** 아이콘 이미지 경로 또는 URL (없으면 화면에서 기본 아이콘 표시) */
+	@Column(length = 1000)
+	private String icon;
+
+	public static LinkCard create(String url, String title, String description, String icon) {
 		Check.notBlank(url, () -> new CustomException("linkcard url is null"));
 		
 		Check.notBlank(title, () -> new CustomException("linkcard title is null"));
@@ -44,8 +48,18 @@ public class LinkCard {
 		linkCard.url = url;
 		linkCard.title = title;
 		linkCard.description = description;
-		
+		linkCard.icon = blankToNull(icon);
+
 		return linkCard;
+	}
+
+	/** 빈 문자열("")을 보내면 아이콘 제거 → 기본 아이콘 */
+	public void changeIcon(String icon) {
+		this.icon = blankToNull(icon);
+	}
+
+	private static String blankToNull(String value) {
+		return (value == null || value.isBlank()) ? null : value;
 	}
 	
 	public void changeUrl(String url) {

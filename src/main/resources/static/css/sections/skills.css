@@ -1,0 +1,55 @@
+.section-eyebrow {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-primary);
+}
+
+.skills .section-title {
+  color: var(--color-heading);
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.skill-row:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.skill-group-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.skill-group-num {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.skill-group-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+@media (max-width: 768px) {
+  .skill-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px 0;
+  }
+
+  .skill-group-head {
+    padding-top: 0;
+  }
+}

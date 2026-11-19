@@ -26,7 +26,24 @@ spring:
         smtp:
           auth: ${MAIL_SMTP_AUTH:false}
           ssl:
-            enable: ${MAIL_STMP_AUTH:false}
+            enable: ${MAIL_SMTP_AUTH:false}
           connectiontimeout: 5000
           timeout: 5000
           writetimeout: 5000
+          
+server:
+  servlet:
+    session:
+      timeout: 60m
+      tracking-modes: cookie
+      cookie:
+        http-only: true
+        same-site: lax
+
+admin:
+  email: ${ADMIN_EMAIL:}
+
+aboutMe:
+  name: 서주성
+  phone: 010-1234-1234
+  email: seong0093571@naver.com

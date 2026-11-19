@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jubu.pofol.domain.model.Post;
 import com.jubu.pofol.domain.model.PostContent;
 import com.jubu.pofol.domain.request.PostRequests.PostCreateRequest;
+import com.jubu.pofol.domain.request.PostRequests.PostLinkRequest;
 import com.jubu.pofol.domain.request.PostRequests.PostUpdateRequest;
 import com.jubu.pofol.domain.response.PostResponses.PostCreateResponse;
 import com.jubu.pofol.domain.response.PostResponses.PostDetailResponse;
@@ -39,20 +40,22 @@ public class PostService {
 	
 	@Transactional
 	public PostCreateResponse create(PostCreateRequest request) {
-		Post post = Post.create(request.title(), request.description());
-		
-		PostContent content = PostContent.create(request.content(), post);
-		
-		post.addContent(content);
-		
-		postRepo.save(post);
-		
-		return new PostCreateResponse(
-				post.getTitle(),
-				post.getDescription(),
-				post.getContent(),
-				post.getId()
+		Post post = Post.create(
+				request.title(),
+				request.description(),
+				request.startDate(),
+				request.endDate()
 		);
+
+		PostContent content = PostContent.create(request.content(), post);
+
+		post.addContent(content);
+
+		replaceLinks(post, request.links());
+
+		postRepo.save(post);
+
+		return PostCreateResponse.of(post);
 	}
 
 	@Transactional
@@ -70,13 +73,31 @@ public class PostService {
 		if(!request.hasContent()) {
 			post.changeContent(request.content());
 		}
-		
-		return new PostUpdateResponse(
-				post.getTitle(),
-				post.getDescription(),
-				post.getContent(),
-				post.getId()
-		);
+
+		if (!request.hasStartDate() || !request.hasEndDate()) {
+			post.changePeriod(
+					request.hasStartDate() ? post.getStartDate() : request.startDate(),
+					request.hasEndDate() ? post.getEndDate() : request.endDate()
+			);
+		}
+
+		if (!request.hasLinks()) {
+			replaceLinks(post, request.links());
+		}
+
+		postRepo.flush();
+
+		return PostUpdateResponse.of(post);
+	}
+
+	private void replaceLinks(Post post, List<PostLinkRequest> links) {
+		post.clearLinks();
+
+		if (links == null) {
+			return;
+		}
+
+		links.forEach(link -> post.addLink(link.title(), link.url()));
 	}
 
 	public void delete(Long postId) {

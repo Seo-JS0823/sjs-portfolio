@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<section th:fragment="skills" id="skills" class="section skills">
+  <div class="container">
+    <p class="section-eyebrow">SKILLS</p>
+    <h2 class="section-title">Tech stack</h2>
+
+    <div class="skill-groups" th:unless="${#lists.isEmpty(tagGroups)}">
+      <div class="skill-row" th:each="group, stat : ${tagGroups}" th:data-group-id="${group.tagGroupId}">
+        <div class="skill-group-head">
+          <span class="skill-group-num" th:text="${#numbers.formatInteger(stat.count, 2)}"></span>
+          <h3 class="skill-group-title" th:text="${group.tagGroupName}"></h3>
+        </div>
+
+        <ul class="tag-list">
+          <li th:each="tag : ${group.tagItems}">
+            <span class="tag"
+                  th:data-tag-id="${tag.tagId}"
+                  th:style="|background-color: ${tag.bgColor}; color: ${tag.tColor};|"
+                  th:text="${tag.tagName}">
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="empty-text" th:if="${#lists.isEmpty(tagGroups)}"></p>
+  </div>
+</section>
+</body>
+</html>

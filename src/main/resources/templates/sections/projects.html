@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<section th:fragment="projects" id="projects" class="section projects">
+  <div class="container">
+    <p class="section-eyebrow">PROJECTS</p>
+    <h2 class="section-title">Selected work</h2>
+
+    <ol class="project-list" th:unless="${#lists.isEmpty(posts)}">
+      <li class="project-item" th:each="post, stat : ${posts}" th:data-post-id="${post.postId}">
+        <span class="project-num" th:text="${#numbers.formatInteger(stat.count, 2)}">01</span>
+
+        <div class="project-body">
+          <h3 class="project-title" th:text="${post.title}">프로젝트 제목</h3>
+          <p class="project-desc" th:text="${post.description}">프로젝트 설명</p>
+          <p class="project-period"
+             th:if="${post.startDate}"
+             th:text="|${post.startDate} ~ ${post.endDate ?: '진행 중'}|">2026-10-01 ~ 2026-12-31</p>
+        </div>
+
+        <div class="project-actions">
+          <div class="project-links" th:unless="${#lists.isEmpty(post.links)}">
+            <button type="button" class="project-links-toggle" aria-expanded="false" aria-label="관련 링크 보기"
+                    th:attr="aria-controls=|project-links-${post.postId}|">
+              <svg class="project-links-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+              <span class="project-links-label">관련 링크</span>
+              <span class="project-links-count" th:text="${#lists.size(post.links)}">2</span>
+              <svg class="project-links-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <ul class="project-links-menu" th:id="|project-links-${post.postId}|" hidden>
+              <li th:each="link : ${post.links}">
+                <a class="project-link" th:href="${link.url}" target="_blank" rel="noopener noreferrer">
+                  <span class="project-link-title" th:text="${link.title}">GitHub</span>
+                  <span class="project-link-url"
+                        th:text="${#strings.replace(#strings.replace(link.url, 'https://', ''), 'http://', '')}">github.com</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <button type="button" class="project-detail-btn" th:attr="aria-label=|${post.title} 상세 보기|">
+            <span>상세 보기</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 6l6 6-6 6"/>
+            </svg>
+          </button>
+        </div>
+      </li>
+    </ol>
+
+    <p class="empty-text" th:if="${#lists.isEmpty(posts)}"></p>
+  </div>
+
+  <dialog class="project-modal" aria-labelledby="project-modal-title" th:unless="${#lists.isEmpty(posts)}">
+    <div class="project-modal-head">
+      <p class="project-modal-num"></p>
+      <h3 id="project-modal-title" class="project-modal-title"></h3>
+      <p class="project-modal-desc"></p>
+      <p class="project-modal-period"></p>
+      <button type="button" class="project-modal-close" aria-label="닫기">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="project-modal-content markdown"></div>
+  </dialog>
+</section>
+</body>
+</html>

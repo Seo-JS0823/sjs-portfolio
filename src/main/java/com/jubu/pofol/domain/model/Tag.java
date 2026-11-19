@@ -39,23 +39,27 @@ public class Tag {
 	@JoinColumn(name = "tag_group_id", nullable = false)
 	private TagGroup tagGroup;
 	
+	private static final String DEFAULT_BG_COLOR = "#FFFFFF";
+
+	private static final String DEFAULT_T_COLOR = "#333333";
+
 	public static Tag create(String name, String bgColor, String tColor, TagGroup tagGroup) {
 		Check.notBlank(name, () -> new CustomException("tag name is null"));
-		
-		Check.notBlank(bgColor, () -> new CustomException("tag background color is null"));
-		
-		Check.notBlank(tColor, () -> new CustomException("tag text color is null"));
-		
+
 		Check.notNull(tagGroup, () -> new CustomException("tag group is null"));
-		
+
 		Tag tag = new Tag();
-		
+
 		tag.name = name;
-		tag.bgColor = bgColor;
-		tag.tColor = tColor;
+		tag.bgColor = orDefault(bgColor, DEFAULT_BG_COLOR);
+		tag.tColor = orDefault(tColor, DEFAULT_T_COLOR);
 		tag.tagGroup = tagGroup;
-		
+
 		return tag;
+	}
+
+	private static String orDefault(String value, String defaultValue) {
+		return (value == null || value.isBlank()) ? defaultValue : value;
 	}
 	
 	public void changeBgColor(String bgColor) {

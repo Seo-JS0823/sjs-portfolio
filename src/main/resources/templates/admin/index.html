@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/head :: head('pofol admin')}"></head>
+<body class="admin-body">
+<header class="admin-header">
+  <div class="admin-wrap admin-header-inner">
+    <strong class="admin-logo">pofol admin</strong>
+    <nav class="admin-nav">
+      <a href="#admin-links">Links</a>
+      <a href="#admin-skills">Skills</a>
+      <a href="#admin-projects">Projects</a>
+    </nav>
+    <div class="admin-header-actions">
+      <a class="btn btn-sub btn-sm" th:href="@{/}" target="_blank" rel="noopener">사이트 보기</a>
+      <form method="post" th:action="@{/po/admin/logout}">
+        <button type="submit" class="btn btn-sub btn-sm">로그아웃</button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<main class="admin-wrap admin-main">
+  <section class="admin-card admin-panel" id="admin-links">
+    <h2 class="admin-panel-title">Links</h2>
+    <form class="admin-form" id="link-form">
+      <input type="hidden" name="id">
+      <label class="admin-field">제목<input class="admin-input" name="title" required></label>
+      <label class="admin-field">URL<input class="admin-input" name="url" placeholder="https://github.com/..." required></label>
+      <label class="admin-field">아이콘 경로<input class="admin-input" name="icon" placeholder="/images/icons/github.svg"></label>
+      <label class="admin-field admin-field-wide">설명<textarea class="admin-input" name="description" rows="2" required></textarea></label>
+      <div class="admin-form-actions">
+        <span class="admin-form-mode" data-mode>새 링크</span>
+        <button type="button" class="btn btn-sub" data-reset>새로 작성</button>
+        <button type="submit" class="btn">저장</button>
+      </div>
+    </form>
+    <ul class="admin-list" id="link-list"></ul>
+  </section>
+
+  <section class="admin-card admin-panel" id="admin-skills">
+    <h2 class="admin-panel-title">Skills</h2>
+    <form class="admin-form admin-form-inline" id="group-form">
+      <label class="admin-field">그룹 이름<input class="admin-input" name="name" placeholder="Language" required></label>
+      <div class="admin-form-actions">
+        <button type="submit" class="btn">그룹 추가</button>
+      </div>
+    </form>
+
+    <form class="admin-form" id="tag-form">
+      <input type="hidden" name="id">
+      <label class="admin-field">그룹<select class="admin-input" name="tagGroupId" required></select></label>
+      <label class="admin-field">태그 이름<input class="admin-input" name="tagName" placeholder="Java" required></label>
+      <div class="admin-field">배경색
+        <span class="admin-color" data-color="bgColor">
+          <input type="color" value="#FFFFFF" aria-label="배경색 선택">
+          <input class="admin-input admin-color-text" name="bgColor" value="#FFFFFF" maxlength="7" placeholder="#FFFFFF" aria-label="배경색 코드" spellcheck="false">
+        </span>
+      </div>
+      <div class="admin-field">글자색
+        <span class="admin-color" data-color="tColor">
+          <input type="color" value="#333333" aria-label="글자색 선택">
+          <input class="admin-input admin-color-text" name="tColor" value="#333333" maxlength="7" placeholder="#333333" aria-label="글자색 코드" spellcheck="false">
+        </span>
+      </div>
+      <div class="admin-form-actions">
+        <span class="admin-tag-preview"><span class="tag" id="tag-preview">미리보기</span></span>
+        <span class="admin-form-mode" data-mode>새 태그</span>
+        <button type="button" class="btn btn-sub" data-reset>새로 작성</button>
+        <button type="submit" class="btn">저장</button>
+      </div>
+    </form>
+    <div class="admin-groups" id="group-list"></div>
+  </section>
+
+  <section class="admin-card admin-panel" id="admin-projects">
+    <h2 class="admin-panel-title">Projects</h2>
+    <form class="admin-form" id="post-form">
+      <input type="hidden" name="id">
+      <label class="admin-field admin-field-wide">제목<input class="admin-input" name="title" required></label>
+      <label class="admin-field admin-field-wide">설명<textarea class="admin-input" name="description" rows="2" required></textarea></label>
+      <label class="admin-field">시작일<input class="admin-input" name="startDate" inputmode="numeric" maxlength="8" pattern="\d{8}" placeholder="20261001"></label>
+      <label class="admin-field">종료일<input class="admin-input" name="endDate" inputmode="numeric" maxlength="8" pattern="\d{8}" placeholder="비우면 진행 중"></label>
+      <div class="admin-field admin-field-wide">관련 링크
+        <div class="admin-links" id="post-links"></div>
+        <button type="button" class="btn btn-sub btn-sm admin-links-add" id="post-link-add">+ 링크 추가</button>
+      </div>
+      <label class="admin-field admin-field-wide">본문 (마크다운)<textarea class="admin-input admin-markdown-input" name="content" rows="14" required></textarea></label>
+      <div class="admin-form-actions">
+        <span class="admin-form-mode" data-mode>새 프로젝트</span>
+        <button type="button" class="btn btn-sub" data-reset>새로 작성</button>
+        <button type="submit" class="btn">저장</button>
+      </div>
+    </form>
+    <ul class="admin-list" id="post-list"></ul>
+  </section>
+</main>
+
+<div class="admin-toast" id="admin-toast" role="status" aria-live="polite"></div>
+
+<script type="module" th:src="@{/js/admin/admin.js}"></script>
+</body>
+</html>

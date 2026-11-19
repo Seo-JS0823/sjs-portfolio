@@ -1,0 +1,24 @@
+.card {
+  display: block;
+  height: 100%;
+  padding: 24px;
+  background: var(--color-card-bg);
+  border-radius: var(--radius);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.card .link-card-url {
+	font-size: 16px;
+}
+
+.card .link-card-desc {
+	font-size: 18px;
+}
+
+a.card:hover,
+.card[data-post-id]:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: var(--color-primary);
+  cursor: pointer;
+}

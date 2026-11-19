@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/head :: head('관리자 인증')}"></head>
+<body class="admin-body">
+<main class="admin-login">
+  <div class="admin-card admin-login-card">
+    <h1 class="admin-login-title">관리자 인증</h1>
+    <p class="admin-login-desc">등록된 이메일로 6자리 인증 코드를 보냅니다. 코드는 5분 동안 유효합니다.</p>
+
+    <p class="admin-msg is-error" th:if="${error}" th:text="${error}">오류</p>
+    <p class="admin-msg" th:if="${sent != null and error == null}">인증 코드를 보냈습니다. 메일을 확인해 주세요.</p>
+
+    <form method="post" th:action="@{/po/admin/login/code}">
+      <button type="submit" class="btn btn-sub btn-block">인증 코드 받기</button>
+    </form>
+
+    <form method="post" th:action="@{/po/admin/login/verify}" class="admin-login-verify">
+      <input class="admin-input admin-code-input" name="code" inputmode="numeric" autocomplete="one-time-code"
+             maxlength="6" pattern="\d{6}" placeholder="000000" required aria-label="인증 코드">
+      <button type="submit" class="btn">확인</button>
+    </form>
+
+    <a class="admin-login-back" th:href="@{/}">사이트로 돌아가기</a>
+  </div>
+</main>
+</body>
+</html>
