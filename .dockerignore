@@ -1,0 +1,12 @@
+.git
+.gradle
+.idea
+.vscode
+build
+out
+bin
+*.iml
+*.pdf
+.env
+compose.yaml
+Dockerfile

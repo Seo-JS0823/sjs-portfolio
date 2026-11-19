@@ -1,21 +1,18 @@
 spring:
   application:
     name: pofol
-  config:
-    import: optional:file:../.env[.properties]
+  profiles:
+    default: local
   datasource:
     driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${PGS_HOST:localhost}:${PGS_PORT:5432}/${PGS_DB}
     username: ${PGS_USER}
     password: ${PGS_PASSWORD}
-    url: jdbc:postgresql://localhost:5432/${PGS_DB}
   jpa:
-    hibernate:
-      ddl-auto: create
     open-in-view: false
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
   mail:
     host: ${MAIL_HOST:localhost}
     port: ${MAIL_PORT:1025}
@@ -26,7 +23,8 @@ spring:
         smtp:
           auth: ${MAIL_SMTP_AUTH:false}
           ssl:
-            enable: ${MAIL_SMTP_AUTH:false}
+            enable: ${MAIL_SMTP_SSL:false}
+            trust: ${MAIL_HOST:localhost}
           connectiontimeout: 5000
           timeout: 5000
           writetimeout: 5000
@@ -39,11 +37,11 @@ server:
       cookie:
         http-only: true
         same-site: lax
-
+        
 admin:
-  email: ${ADMIN_EMAIL:}
-
+  email: ${ADMIN_EMAIL}
+  
 aboutMe:
   name: 서주성
-  phone: 010-1234-1234
+  phone: 010-4458-5884
   email: seong0093571@naver.com

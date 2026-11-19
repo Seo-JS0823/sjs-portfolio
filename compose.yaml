@@ -1,0 +1,56 @@
+name: pofol
+
+services:
+  app:
+    build: .
+    image: pofol-app
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      TZ: Asia/Seoul
+      PGS_HOST: postgres
+      PGS_PORT: "5432"
+      PGS_DB: ${PGS_DB:?PGS_DB is required}
+      PGS_USER: ${PGS_USER:?PGS_USER is required}
+      PGS_PASSWORD: ${PGS_PASSWORD:?PGS_PASSWORD is required}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?ADMIN_EMAIL is required}
+      MAIL_HOST: ${MAIL_HOST:-smtp.naver.com}
+      MAIL_PORT: ${MAIL_PORT:-465}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_SMTP_AUTH: ${MAIL_SMTP_AUTH:-true}
+      MAIL_SMTP_SSL: ${MAIL_SMTP_SSL:-true}
+    ports:
+      - "127.0.0.1:${APP_PORT:-8080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  postgres:
+    image: postgres:17
+    environment:
+      TZ: Asia/Seoul
+      POSTGRES_DB: ${PGS_DB:?PGS_DB is required}
+      POSTGRES_USER: ${PGS_USER:?PGS_USER is required}
+      POSTGRES_PASSWORD: ${PGS_PASSWORD:?PGS_PASSWORD is required}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  pgdata:
