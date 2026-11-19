@@ -66,8 +66,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  aspect-ratio: 2.4 / 1;
+  min-height: calc(var(--link-card-width) / 2.4);
   padding: 24px 80px 24px 28px;
+}
+
+.link-card-head,
+.link-card-url,
+.link-card-desc {
+  flex-shrink: 0;
 }
 
 .link-card-arrow {
