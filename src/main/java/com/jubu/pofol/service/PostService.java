@@ -2,6 +2,7 @@ package com.jubu.pofol.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +34,7 @@ public class PostService {
 	
 	@Transactional(readOnly = true)
 	public PostListResponse getList() {
-		List<Post> posts = postRepo.findAll();
+		List<Post> posts = postRepo.findAll(Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("id")));
 		
 		return PostListResponse.of(posts);
 	}
