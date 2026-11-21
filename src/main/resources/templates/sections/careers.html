@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<section th:fragment="careers" id="careers" class="section careers">
+  <div class="container">
+    <p class="section-eyebrow">CAREER</p>
+    <h2 class="section-title">Experience</h2>
+
+    <ol class="career-list" th:unless="${#lists.isEmpty(careers)}">
+      <li class="career-item" th:each="career : ${careers}">
+        <div class="career-side">
+          <p class="career-period">
+            <span th:text="${#strings.replace(#strings.substring(career.startDate, 0, 7), '-', '.')}">2023.03</span>
+            <span class="career-period-sep" aria-hidden="true">–</span>
+            <span th:if="${career.endDate}"
+                  th:text="${#strings.replace(#strings.substring(career.endDate, 0, 7), '-', '.')}">2024.02</span>
+            <span th:unless="${career.endDate}" class="career-current">재직 중</span>
+          </p>
+        </div>
+
+        <div class="career-body">
+          <h3 class="career-title" th:text="${career.title}">회사명 · 직무</h3>
+
+          <ul class="tag-list career-keywords" th:unless="${#lists.isEmpty(career.keywords)}">
+            <li th:each="keyword : ${career.keywords}">
+              <span class="tag" th:text="${keyword}">Java</span>
+            </li>
+          </ul>
+
+          <ul class="career-contents" th:unless="${#lists.isEmpty(career.contents)}">
+            <li th:each="content : ${career.contents}" th:text="${content}">업무 내용</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+
+    <p class="empty-text" th:if="${#lists.isEmpty(careers)}">등록된 경력이 없습니다.</p>
+  </div>
+</section>
+</body>
+</html>

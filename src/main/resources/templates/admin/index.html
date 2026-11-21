@@ -9,6 +9,7 @@
       <a href="#admin-links">Links</a>
       <a href="#admin-skills">Skills</a>
       <a href="#admin-projects">Projects</a>
+      <a href="#admin-careers">Career</a>
     </nav>
     <div class="admin-header-actions">
       <a class="btn btn-sub btn-sm" th:href="@{/}" target="_blank" rel="noopener">사이트 보기</a>
@@ -92,6 +93,27 @@
       </div>
     </form>
     <ul class="admin-list" id="post-list"></ul>
+  </section>
+
+  <section class="admin-card admin-panel" id="admin-careers">
+    <h2 class="admin-panel-title">Career</h2>
+    <form class="admin-form" id="career-form">
+      <input type="hidden" name="id">
+      <label class="admin-field admin-field-wide">제목<input class="admin-input" name="title" maxlength="100" placeholder="회사명 · 직무" required></label>
+      <label class="admin-field">시작일<input class="admin-input" name="startDate" inputmode="numeric" maxlength="8" pattern="\d{8}" placeholder="20230301" required></label>
+      <label class="admin-field">종료일<input class="admin-input" name="endDate" inputmode="numeric" maxlength="8" pattern="\d{8}" placeholder="비우면 재직 중"></label>
+      <label class="admin-field admin-field-wide">키워드 (쉼표로 구분)<input class="admin-input" name="keywords" placeholder="Java, Spring Boot, JPA"></label>
+      <div class="admin-field admin-field-wide">업무 내용
+        <div class="admin-links" id="career-contents"></div>
+        <button type="button" class="btn btn-sub btn-sm admin-links-add" id="career-content-add">+ 내용 추가</button>
+      </div>
+      <div class="admin-form-actions">
+        <span class="admin-form-mode" data-mode>새 경력</span>
+        <button type="button" class="btn btn-sub" data-reset>새로 작성</button>
+        <button type="submit" class="btn">저장</button>
+      </div>
+    </form>
+    <ul class="admin-list" id="career-list"></ul>
   </section>
 </main>
 

@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.jubu.pofol.config.AboutMeProperties;
+import com.jubu.pofol.service.CareerService;
 import com.jubu.pofol.service.LinkCardService;
 import com.jubu.pofol.service.PageReader;
 import com.jubu.pofol.service.PostService;
@@ -21,6 +22,7 @@ public class PageController {
 	private final LinkCardService lcService;
 	private final TagService tagService;
 	private final PostService postService;
+	private final CareerService careerService;
 
 	@GetMapping
 	public String index(Model model) {
@@ -28,6 +30,7 @@ public class PageController {
 		model.addAttribute("links", lcService.getList().lcs());
 		model.addAttribute("tagGroups", tagService.getTagSummary().tags());
 		model.addAttribute("posts", postService.getList().posts());
+		model.addAttribute("careers", careerService.getList().careers());
 
 		return "index";
 	}

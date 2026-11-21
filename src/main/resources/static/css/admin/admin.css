@@ -324,6 +324,17 @@ textarea.admin-input {
   background: #FDF2F1;
 }
 
+.admin-content-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32px;
+  gap: 8px;
+  align-items: start;
+}
+
+.admin-content-row .admin-link-remove {
+  margin-top: 4px;
+}
+
 .admin-links-add {
   align-self: flex-start;
 }
