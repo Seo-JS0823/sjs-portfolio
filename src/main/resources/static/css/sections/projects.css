@@ -287,6 +287,14 @@ html:has(.project-modal[open]) {
   display: none;
 }
 
+.project-modal-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  flex-shrink: 0;
+  height: 0;
+}
+
 .project-modal-close {
   position: absolute;
   top: 20px;
@@ -297,6 +305,7 @@ html:has(.project-modal[open]) {
   width: 40px;
   height: 40px;
   color: var(--color-text-sub);
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 50%;
   transition: background var(--transition), color var(--transition);
 }
@@ -350,6 +359,12 @@ html:has(.project-modal[open]) {
     width: calc(100% - 24px);
   }
 
+  .project-modal[open] {
+    display: block;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
   .project-modal-head {
     padding: 24px 60px 20px 20px;
   }
@@ -365,5 +380,6 @@ html:has(.project-modal[open]) {
 
   .project-modal-content {
     padding: 20px 20px 28px;
+    overflow-y: visible;
   }
 }

@@ -75,8 +75,9 @@ export function initProjects() {
     titleEl.textContent = item.querySelector('.project-title').textContent;
     descEl.textContent = item.querySelector('.project-desc').textContent;
     periodEl.textContent = item.querySelector('.project-period')?.textContent ?? '';
-    contentEl.scrollTop = 0;
     modal.showModal();
+    modal.scrollTop = 0;
+    contentEl.scrollTop = 0;
 
     http.post(`/api/posts/${id}/views`).catch(() => {});
 
