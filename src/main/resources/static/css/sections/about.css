@@ -88,7 +88,7 @@
   transition: background var(--transition), border-color var(--transition);
 }
 
-.contact-card:hover {
+a.contact-card:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: var(--color-primary);
 }
@@ -108,6 +108,46 @@
 .contact-icon svg {
   width: 18px;
   height: 18px;
+}
+
+.contact-card-link {
+  padding-right: 12px;
+}
+
+.contact-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+  padding-left: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  color: var(--color-on-dark);
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.contact-arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+.contact-card-link:hover .contact-arrow {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateX(2px);
+}
+
+.contact-icon.has-img {
+  background: var(--color-on-dark);
+}
+
+.contact-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .contact-text {
